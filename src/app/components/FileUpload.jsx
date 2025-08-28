@@ -1,11 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from "react"
 
 
 function FileUpload() {
     const [dragActive, setDragActive] = useState(false)
     const [files, setFiles] = useState([])
+
+
+    const router = useRouter()
+
+
 
     const handleDrag = (e) => {
         e.preventDefault()
@@ -47,6 +53,16 @@ function FileUpload() {
         const i = Math.floor(Math.log(bytes) / Math.log(k))
         return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
     }
+
+
+    useEffect(() => {
+        if (files.length !== 0) {
+            console.log(files[0])
+            router.push("/medicine")
+        }
+    }, [files])
+
+
 
     return (
         <div className="w-full">
